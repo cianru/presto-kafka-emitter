@@ -1,3 +1,0 @@
-event-listener.name=kafka-emitter
-kafka-emitter.kafka_topics.query_completed=presto.query-completed
-kafka-emitter.kafka.bootstrap.servers=hd7.msk.cian.ru:6667
