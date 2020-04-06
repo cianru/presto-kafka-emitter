@@ -47,6 +47,6 @@ public class KafkaProducerFactoryTest {
 
     @Test
     public void createProperties() {
-        Assert.assertEquals(expected, new KafkaProducerFactory().complementProperties(input));
+        Assert.assertEquals(expected, new KafkaProducerFactory().addProperties(input));
     }
 }

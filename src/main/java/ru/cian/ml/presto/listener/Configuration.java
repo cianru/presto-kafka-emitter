@@ -2,31 +2,33 @@ package ru.cian.ml.presto.listener;
 
 import java.util.Map;
 import java.util.Properties;
-import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 
 public class Configuration {
-    private final static String NAME = "kafka-emitter";
+    private final static String PLUGIN_PREFIX = "kafka-emitter.";
     private final Map<String, String> config;
-    private final Logger logger = Logger.getLogger(getClass().getName());
 
     public Configuration(Map<String, String> config) {
-        logger.info("Loading configuration " + config);
-        this.config = config;
+        this.config = Configuration.extractByPrefix(config, PLUGIN_PREFIX);
+    }
+
+    private static <T> Map<String, T> extractByPrefix(Map<String, T> config, String prefix) {
+        int prefixLen = prefix.length();
+        return config.entrySet()
+                .stream()
+                .filter(entry -> entry.getKey().startsWith(prefix))
+                .collect(Collectors.toMap(
+                        x -> x.getKey().substring(prefixLen),
+                        Map.Entry::getValue
+                ));
     }
 
     public Properties getConfig(final String section) {
-        String prefix = NAME + "." + section + ".";
-        int prefixLen = prefix.length();
-        Properties properties = new Properties();
-
-        config.entrySet()
-                .stream()
-                .filter(entry -> entry.getKey().startsWith(prefix))
-                .forEach(entry -> properties.put(
-                        entry.getKey().substring(prefixLen),
-                        entry.getValue()
-                ));
-        return properties;
+        return new Properties() {{
+            Configuration
+                    .extractByPrefix(config, section + ".")
+                    .forEach(this::put);
+        }};
     }
 }

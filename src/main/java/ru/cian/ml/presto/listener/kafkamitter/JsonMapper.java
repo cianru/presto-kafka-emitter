@@ -8,11 +8,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class JsonMapper {
+    private final static Logger logger = Logger.getLogger(JsonMapper.class.getName());
     private final ObjectMapper objectMapper = new ObjectMapper() {{
         registerModule(new Jdk8Module()); // Optional support
     }};
-
-    private final Logger logger = Logger.getLogger(getClass().getName());
 
     public String convert(Object obj) {
         try {

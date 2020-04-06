@@ -3,13 +3,13 @@
 ## Build
 
 ```
-$ mvn package "-Dpresto.version=0.229 -Dkafka.version=0.11.0.3 -Djackson.version=2.9.8"
+$ mvn package "-Dpresto.version=0.229 -Dkafka.version=0.10.1.1 -Djackson.version=2.9.8"
 ```
 This will produce uber jar `/target/presto-kafka-emitter-1.0.jar` 
 
 ## Deployment
 
-On each presto node:
+On presto coordinator node:
 
 1. Create directory `kafka-emitter` in `$PRESTO_HOME/plugin` and put assembled jar in
 2. Create file `$PRESTO_HOME/etc/event-listener.properties` and fill it as in the example
