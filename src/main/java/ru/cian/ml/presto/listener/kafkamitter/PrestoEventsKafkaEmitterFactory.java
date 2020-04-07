@@ -6,8 +6,10 @@ import com.facebook.presto.spi.eventlistener.EventListenerFactory;
 import java.util.Map;
 
 public class PrestoEventsKafkaEmitterFactory implements EventListenerFactory {
+    private final static String NAME = "kafka-emitter";
+
     public String getName() {
-        return "kafka-emitter";
+        return NAME;
     }
 
     public EventListener create(Map<String, String> config) {
