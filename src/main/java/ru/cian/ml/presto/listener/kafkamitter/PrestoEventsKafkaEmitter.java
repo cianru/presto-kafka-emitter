@@ -5,6 +5,7 @@ import com.facebook.presto.spi.eventlistener.QueryCompletedEvent;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import ru.cian.ml.presto.listener.Configuration;
+import ru.cian.ml.presto.listener.kafkamitter.serialization.JsonMapper;
 
 import java.util.Map;
 import java.util.Properties;

@@ -1,4 +1,4 @@
-package ru.cian.ml.presto.listener.kafkamitter;
+package ru.cian.ml.presto.listener.kafkamitter.serialization;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,9 +13,10 @@ public class JsonMapper {
         registerModule(new Jdk8Module()); // Optional support
     }};
 
-    public String convert(Object obj) {
+    public <T> String convert(T obj) {
         try {
-            return objectMapper.writeValueAsString(obj);
+            Message<T> message = new Message<>(obj);
+            return objectMapper.writeValueAsString(message);
         } catch (JsonProcessingException e) {
             logger.log(Level.SEVERE, "Unable to convert " + objectMapper + " to JSON", e);
             return null;
